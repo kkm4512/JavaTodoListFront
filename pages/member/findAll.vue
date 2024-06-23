@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import { HttpMethod } from "~/types/HttpMethod";
 import type { Member } from "~/types/MemberType";
+import type { Board } from "~/types/boardType";
 definePageMeta({
   middleware: "user",
 });

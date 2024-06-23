@@ -1,12 +1,19 @@
 <template>
-  <div class="container flex justify-center">
-    중앙에서 합니다.
+  <div class="container">
+    <BoardCards :boards="res" />
   </div>
-  
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+import { HttpMethod } from "~/types/HttpMethod";
+import type { Board } from "~/types/boardType";
 
-<style>
+const res = ref<Board[]>([]);
+const response = await boardFetch<Board[]>("findAll", HttpMethod.GET);
+if (response) {
+  res.value = response;
+}
 
-</style>
+</script>
+
+<style></style>

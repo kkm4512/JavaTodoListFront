@@ -36,32 +36,13 @@ const props = defineProps<{
   boards: Board[];
 }>();
 
-const { data: boards, refresh } = useAsyncData<Board[]>('findAll', async () => {
-  const response = await fetch('http://localhost:8080/api/board/findAll', {
-    method: 'GET',
-  });
+const emit = defineEmits(["board-removed"])
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch boards');
-  }
-  return response.json();
-});
-
-async function deleteBoard(id: string) {
-  const success = await removeBoard(id);
-  if (success) {
-    refresh(); // 데이터 갱신을 위해 API 호출 다시 수행
-  }
-}
-
-async function removeBoard(id: string): Promise<boolean> {
-  const res = await boardFetch<boolean>(`removeBoard/${id}`, HttpMethod.GET);
-  if (res) {
-    return true;
-  } else {
-    alert('해당 게시물의 삭제에 실패 하였습니다');
-    return false;
-  }
+async function removeBoard(id: string){
+  const res = await boardFetch(`removeBoard/${id}`,HttpMethod.GET);
+  if (res) {    
+    emit("board-removed",id)
+  } 
 }
 </script>
 

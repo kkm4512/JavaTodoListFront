@@ -9,3 +9,9 @@ export interface MemberErrorResponse {
     }
   }
 }
+
+export interface BoardErrorResponse {
+  response: {
+    _data: any;
+  }
+}

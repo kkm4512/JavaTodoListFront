@@ -1,4 +1,4 @@
-import type { MemberErrorResponse } from "~/types/ErrorResponse";
+import type { BoardErrorResponse, MemberErrorResponse } from "~/types/ErrorResponse";
 import { HttpMethod } from "~/types/HttpMethod";
 
 export async function boardFetch<T>(path:string,httpMethod:HttpMethod,data?:{}): Promise<T | undefined>{
@@ -11,7 +11,7 @@ export async function boardFetch<T>(path:string,httpMethod:HttpMethod,data?:{}):
     return res;
   } catch (e:unknown) {
     if (isFetchError(e)) {
-      const errorResponse:MemberErrorResponse = e;
+      const errorResponse:BoardErrorResponse = e;
       const erros: {[key:string]: string | undefined} = errorResponse.response._data.errors;
       for ( const field in erros ) {
         alert(erros[field]);
